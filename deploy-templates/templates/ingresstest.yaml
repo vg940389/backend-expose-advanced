@@ -3,23 +3,26 @@ kind: Ingress
 metadata:
   name: advanced
   namespace: 74cudwfj-expose-advanced-dev
+  annotations:
+    # Adds custom NGINX configuration to the Ingress.
+    # This snippet disables the `X-Frame-Options` header, allowing the application to be embedded in iframes.
+    nginx.ingress.kubernetes.io/configuration-snippet: 'more_set_headers X-Frame-Options: none;'
 spec:
   rules:
-    # Host or domain name for routing traffic. Requests to this host will be handled by the Ingress.
     - host: backend-expose-advanced-74cudwfj-expose-advanced-dev.development.krci-dev.cloudmentor.academy
       http:
         paths:
-          - path: /                 # Matches the root path for routing traffic.
-            pathType: Prefix  # Matches all paths that start with `/` (e.g., `/example`).
+          - path: /
+            pathType: Prefix
             backend:
               service:
-                name: root-service  # Name of the service to route traffic for `/`.
+                name: root-service
                 port:
-                  number: 80        # Port on the service to forward traffic to.
-          - path: /api/hello        # Matches requests to `/api/hello` explicitly.
-            pathType: Prefix        # Matches all paths starting with `/api/hello`.
+                  number: 80
+          - path: /api/hello
+            pathType: Prefix
             backend:
               service:
-                name: hello-service # Name of the service to route traffic for `/api/hello`.
+                name: hello-service
                 port:
-                  number: 80        # Port on the service to forward traffic to.
+                  number: 80

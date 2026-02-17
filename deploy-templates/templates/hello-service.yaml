@@ -11,5 +11,5 @@ spec:
       targetPort: http
   selector:
     app.kubernetes.io/instance: backend-expose-advanced
-    app.kubernetes.io/name: backend-expose
+    app.kubernetes.io/name: backend-expose-advanced
   type: ClusterIP

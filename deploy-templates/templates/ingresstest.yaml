@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: advanced
+  namespace: 74cudwfj-expose-advanced-dev
+spec:
+  rules:
+    # Host or domain name for routing traffic. Requests to this host will be handled by the Ingress.
+    - host: backend-expose-advanced-74cudwfj-expose-advanced-dev.development.krci-dev.cloudmentor.academy
+      http:
+        paths:
+          - path: /                 # Matches the root path for routing traffic.
+            pathType: Prefix  # Matches all paths that start with `/` (e.g., `/example`).
+            backend:
+              service:
+                name: root-service  # Name of the service to route traffic for `/`.
+                port:
+                  number: 80        # Port on the service to forward traffic to.
+          - path: /api/hello        # Matches requests to `/api/hello` explicitly.
+            pathType: Prefix        # Matches all paths starting with `/api/hello`.
+            backend:
+              service:
+                name: hello-service # Name of the service to route traffic for `/api/hello`.
+                port:
+                  number: 80        # Port on the service to forward traffic to.
